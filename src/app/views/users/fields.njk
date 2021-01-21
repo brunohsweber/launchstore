@@ -1,0 +1,67 @@
+<div class="item">
+  <div>Nome Completo</div>
+  <div class="input">
+    <input type="text" name="name" placeholder="Digite o seu nome completo" value="{{ user.name }}" required oninvalid="setCustomValidity('Informe o seu nome')" oninput="setCustomValidity('')">
+  </div>
+</div>
+
+<div class="item">
+  <div>Email</div>
+  <div class="input">
+    <input type="email" name="email" placeholder="Digite o seu email" value="{{ user.email }}" onblur="Validate.apply(this, 'isEmail')" required oninvalid="setCustomValidity('Coloque o seu email')" oninput="setCustomValidity('')">
+  </div>
+</div>
+
+<div class="item">
+  <div>Senha</div>
+  <div class="input">
+    <input type="password" 
+    name="password" 
+    {% if not user.id %}
+    placeholder="Digite uma senha segura" 
+    oninvalid="setCustomValidity('Escolha uma senha segura')" 
+    oninput="setCustomValidity('')"
+    required 
+      {% else  %}
+       placeholder="Digite sua senha para atualizar seu cadastro"
+  {% endif %}
+    >
+  </div>
+</div>
+
+{% if not user.id %}
+
+  <div class="item">
+    <div>Repita a Senha</div>
+    <div class="input">
+      <input type="password" 
+      name="passwordRepeat" 
+      placeholder="Repita a senha escolhida" 
+      required 
+      oninvalid="setCustomValidity('Repita a senha')" 
+      oninput="setCustomValidity('')">
+    </div>
+  </div>
+
+{% endif %}
+
+<div class="item">
+  <div>CPF ou CNPJ</div>
+  <div class="input">
+    <input type="text" name="cpf_cnpj" placeholder="Digite seu documento" value="{{ user.cpf_cnpj }}" onkeydown="Mask.apply(this, 'cpfCnpj')" onblur="Validate.apply(this, 'isCpfCnpj')" required oninvalid="setCustomValidity('Preencha com seu CPF ou CNPJ')" oninput="setCustomValidity('')">
+  </div>
+</div>
+
+<div class="item">
+  <div>CEP</div>
+  <div class="input">
+    <input type="text" name="cep" placeholder="99999-999" value="{{ user.cep }}" onkeydown="Mask.apply(this, 'cep')" onblur="Validate.apply(this, 'isCep')" required oninvalid="setCustomValidity('Informe o CEP do seu endereço')" oninput="setCustomValidity('')">
+  </div>
+</div>
+
+<div class="item">
+  <div>Endereço Completo</div>
+  <div class="input">
+    <input type="text" name="address" placeholder="Digite seu endereço completo" value="{{ user.address }}" required oninvalid="setCustomValidity('Preencha com o seu endereço completo')" oninput="setCustomValidity('')">
+  </div>
+</div>

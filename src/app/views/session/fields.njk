@@ -1,0 +1,19 @@
+<div class="item">
+  <div>Email</div>
+  <div class="input">
+    <input type="email" name="email" placeholder="Digite o seu email" value="{{ user.email }}" onblur="Validate.apply(this, 'isEmail')" required oninvalid="setCustomValidity('Coloque o seu email')" oninput="setCustomValidity('')">
+  </div>
+</div>
+
+<div class="item">
+  <div>Senha</div>
+  <div class="input">
+    <input type="password" 
+    name="password" 
+    placeholder="Digite a sua senha" 
+    oninvalid="setCustomValidity('Digite a sua senha')" 
+    oninput="setCustomValidity('')"
+    required 
+    >
+  </div>
+</div>

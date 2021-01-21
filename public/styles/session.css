@@ -1,0 +1,34 @@
+section.login.container,
+section.password.container {
+  max-width: 500px;
+}
+
+section.password.container .fields,
+section.login.container .fields {
+  margin-bottom: 32px;
+}
+
+body
+  > section
+  > form
+  > div.fields
+  > div:nth-child(2)
+  > div.input
+  > input[type="password"] {
+  width: 100%;
+  max-width: unset;
+}
+
+section.login.container .footer ul {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+section.login.container .footer ul li a {
+  color: #777;
+}
+
+section.login.container .footer ul li a:hover {
+  color: black;
+  font-weight: bold;
+}
