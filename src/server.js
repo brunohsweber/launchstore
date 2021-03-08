@@ -25,4 +25,4 @@ nunjucks.configure("src/app/views", {
   watch: true,
 });
 
-server.listen(3333, () => console.log("Server is running..."));
+server.listen(5000, () => console.log("Server is running..."));

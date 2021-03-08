@@ -143,6 +143,24 @@ const Validate = {
       value,
     };
   },
+  allFields(e) {
+    const items = document.querySelectorAll(
+      ".item input, .item select, .item textarea"
+    );
+
+    for (item of items) {
+      if (item.value == "") {
+        const message = document.createElement("div");
+        message.classList.add("messages");
+        message.classList.add("error");
+        message.style.position = "fixed";
+        message.innerHTML = "Todos os campos são obrigatórios";
+        document.querySelector("body").append(message);
+
+        e.preventDefault();
+      }
+    }
+  },
 };
 
 const PhotosUpload = {
@@ -292,3 +310,13 @@ const Lightbox = {
     Lightbox.closeButton.style.top = "-80px";
   },
 };
+
+function mask(value, pattern) {
+  let i = 0;
+  const v = value.toString();
+
+  return pattern.replace(/#/g, () => v[i++] || "");
+}
+
+// Para chamar a função e aplicar em qualquer input:
+// const phoneMasked = mask("47998765432", "(##) #####-####");

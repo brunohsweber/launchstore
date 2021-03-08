@@ -24,7 +24,9 @@ module.exports = {
     return new Intl.NumberFormat("pt-BR", {
       style: "currency",
       currency: "BRL",
-    }).format(price / 100);
+    })
+      .format(price / 100)
+      .replace("$", "$ ");
   },
   formatCpfCnpj(value) {
     value = value.replace(/\D/g, "");

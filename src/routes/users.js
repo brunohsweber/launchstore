@@ -11,19 +11,12 @@ const {
 
 const SessionController = require("../app/controllers/SessionController");
 const UserController = require("../app/controllers/UserController");
+const OrderController = require("../app/controllers/OrderController");
 
 // login/logout
 routes.get("/login", isLoggedRedirectToUsers, SessionController.loginForm);
 routes.post("/login", SessionValidator.login, SessionController.login);
 routes.post("/logout", SessionController.logout);
-
-// user register
-routes.get("/register", UserController.registerForm);
-routes.post("/register", UserValidator.post, UserController.post);
-
-routes.get("/", onlyUsers, UserValidator.show, UserController.show);
-routes.put("/", UserValidator.update, UserController.update);
-routes.delete("/", UserController.delete);
 
 // reset password/forgot
 routes.get("/forgot-password", SessionController.forgotForm);
@@ -34,5 +27,17 @@ routes.post(
   SessionController.forgot
 );
 routes.post("/password-reset", SessionValidator.reset, SessionController.reset);
+
+// user register
+routes.get("/register", UserController.registerForm);
+routes.post("/register", UserValidator.post, UserController.post);
+
+routes.get("/", onlyUsers, UserValidator.show, UserController.show);
+routes.put("/", UserValidator.update, UserController.update);
+routes.delete("/", UserController.delete);
+
+routes.get("/ads", UserController.ads);
+
+routes.post("/orders", onlyUsers, OrderController.post);
 
 module.exports = routes;

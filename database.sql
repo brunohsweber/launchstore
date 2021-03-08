@@ -1,3 +1,6 @@
+DROP SCHEMA public CASCADE;
+CREATE SCHEMA public;
+
 DROP DATABASE IF EXISTS launchstoredb;
 
 -- Para reiniciar uma tabela, veja o exemplo:
@@ -125,4 +128,42 @@ REFERENCES "products"
   ("id")
 ON
   DELETE CASCADE;
+  
 
+CREATE TABLE "orders" (
+  "id" SERIAL PRIMARY KEY,
+  "seller_id" int NOT NULL,
+  "buyer_id" int NOT NULL,
+  "product_id" int NOT NULL,
+  "price" int NOT NULL,
+  "quantity" int DEFAULT 0,
+  "total" int NOT NULL,
+  "status" text NOT NULL,
+  "created_at" timestamp DEFAULT (now()),
+  "updated_at" timestamp DEFAULT (now())
+  );
+  
+ALTER TABLE "orders" ADD FOREIGN KEY ("seller_id") REFERENCES "users" ("id");
+ALTER TABLE "orders" ADD FOREIGN KEY ("buyer_id") REFERENCES "users" ("id");
+ALTER TABLE "orders" ADD FOREIGN KEY ("product_id") REFERENCES "users" ("id");
+
+CREATE TRIGGER set_timestamp
+BEFORE UPDATE ON orders
+FOR EACH ROW
+EXECUTE PROCEDURE trigger_set_timestamp();
+
+-- Soft DELETE
+-- 1. Criar uma coluna na table products chamda "deleted_at"
+ALTER TABLE products ADD COLUMN "deleted_at" timestamp;
+-- 2. Criar uma Regra que vai rodar todas as vezes que solicitamos o DELETE
+CREATE OR REPLACE RULE delete_product AS
+ON DELETE TO products DO INSTEAD
+UPDATE products
+SET deleted_at = now()
+WHERE products.id = old.id;
+-- 3. Criar uma VIEW onde vamos puxar somente os dados que estão ativos
+CREATE VIEW products_without_deleted AS
+SELECT * FROM products WHERE deleted_at IS NULL;
+-- 4. Renomear a VIEW e a TABLE
+ALTER TABLE products RENAME TO products_with_deleted;
+ALTER VIEW products_without_deleted RENAME TO products;
